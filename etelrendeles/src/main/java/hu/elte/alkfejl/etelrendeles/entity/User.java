@@ -1,6 +1,7 @@
 package hu.elte.alkfejl.etelrendeles.entity;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +22,10 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity {
 
+    @OneToMany(targetEntity = Order.class, mappedBy = "user")
+    @JsonIgnore
+    private List<Order> orders;
+
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -28,8 +34,7 @@ public class User extends BaseEntity {
 
     @Column(nullable = false)
     private String password;
-    
-    
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
