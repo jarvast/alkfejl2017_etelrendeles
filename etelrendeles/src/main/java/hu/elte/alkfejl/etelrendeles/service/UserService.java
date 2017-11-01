@@ -8,39 +8,40 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 @Service
-@SessionScope //tárolja és ki tudja szolgálni a bejelentkezett felhasználót a http session alatt
+@SessionScope
 @Data
 public class UserService {
-    
+
     @Autowired
     private UserRepository userRepository;
-    
+
     private User user;
-    
-    public User login(User user) throws UserNotValidException{
-        if (isValid(user)){
+
+    public User login(User user) throws UserNotValidException {
+        if (isValid(user)) {
             return this.user = userRepository.findByUsername(user.getUsername());
         }
         throw new UserNotValidException();
     }
-    
-    public User register(User user){
+
+    public User register(User user) {
         user.setRole(User.Role.USER);
         return this.user = userRepository.save(user);
     }
-    
-    public boolean isValid(User user){
-        return userRepository.findByUsernameAndPassword(user.getUsername(),user.getPassword()).isPresent();
+
+    public boolean isValid(User user) {
+        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
     }
-    
-    public boolean isLoggedIn(){
+
+    public boolean isLoggedIn() {
         return user != null;
     }
-    public User getLoggedInUser(){
+
+    public User getLoggedInUser() {
         return user;
     }
-    
-    public void logout(){
+
+    public void logout() {
         user = null;
     }
 }

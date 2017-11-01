@@ -1,6 +1,7 @@
 package hu.elte.alkfejl.etelrendeles.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;

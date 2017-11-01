@@ -2,6 +2,7 @@ package hu.elte.alkfejl.etelrendeles.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -26,20 +27,22 @@ public class Item extends BaseEntity {
 
     @JoinColumn
     @ManyToOne(targetEntity = Category.class, optional = false)
+    @JsonIgnoreProperties("items")
     private Category category;
 
-    @ManyToMany(mappedBy = "items")
+    @ManyToMany(mappedBy = "items", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("items")
     private List<Order> orderList;
-    
+
     @Column
     private String description;
-    
+
     @Column(nullable = false)
     private int price;
-    
+
     @Column(nullable = false)
     private boolean isSpicy;
-    
+
     @Column(nullable = false)
     private boolean isVegetarian;
 }
