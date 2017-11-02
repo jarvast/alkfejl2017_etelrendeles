@@ -1,4 +1,4 @@
-# Ételrendelés
+# Ételrendelés feladat
 
 ## Funkcionális követelmények
 
