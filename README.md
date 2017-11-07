@@ -43,8 +43,7 @@
 
 ## Adatbázis terv
 
-Inline-style: 
-![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/db.png "Adatbazis modelje")
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/db.png "Adatbazis modellje")
 
 ### Végpontok:
 1. __user:__
@@ -78,10 +77,10 @@ Inline-style:
 -	DELETE/category/{categoryId}/item/{itemId}: tétel törlése
 
 
-## Adatbázis szekvencia diagram
+## Végpont bemutatása
 
-Inline-style: 
-![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/sequence.jpg "Szekvencia diagramm")
+Étel/ital tétel törlése:
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/sequence.jpg "Szekvencia diagram")
 
 ## Könyvtárstruktúra
 1.	…etelrendeles.annotations: egyedi annotációk
