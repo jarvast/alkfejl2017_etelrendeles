@@ -28,3 +28,83 @@
 
 - vendég: a főoldal tartalmához fér hozzá, rendelést adhat le.
 - alkalmazott: a vendég szerepkörén túl új ételt vagy italt adhat hozzá, és a rendeléseket kezelheti.
+
+## Fejlesztés
+
+#### A backend megvalósításához a következő technológiákat, modelleket használtuk:
+-	Java Spring Boot
+-	MVC modell
+-	REST API
+-	authorizált végpontok
+-	h2 adatbáziskezelő rendszer
+-	GitHub, Git
+
+#### Fejlesztői környezet: NetBeans
+
+## Adatbázis terv
+
+### Végpontok:
+1. __user:__
+-	GET/user: bejelentkezett felhasználó 
+-	GET/login: bejelentkezés
+-	POST/login: bejelentkezési adatok küldése
+-	GET/register: regisztráció
+-	POST/register: regisztrációs adatok elküldése
+-	POST/logout: kijelentkezés
+2. __order:__
+-	GET/orders: role szerinti listázás
+-	GET/searchStatus: státusz szerinti keresés
+-	GET/searchName: név szerinti keresés
+-	GET/searchAddress: cím szerinti keresés
+-	POST/orders: új rendelés felküldése
+-	PUT/orders/{id}/addItem: rendeléshez új tétel felvétele
+-	PUT/orders/{id}: rendelés frissítése
+-	GET/orders/{id}: rendelés lekérdezése
+-	DELETE/orders/{id}: rendelés törlése
+3. __category:__
+-	GET/categories: összes kategória listázás
+4. __item:__
+-	GET/items: összes tétel listázása
+-	GET/max: a legnépszerűbb tétel lekérése
+-	GET/category/{id}/items : kategóriánkénti listázás
+-	GET /category/{id}/item/search/{keyWord}: kategórián belül kulcsszóval keresés
+-	GET/order/{id}/items: a rendelésen belüli tételek listázása
+-	POST/category/{id}/items: új tétel felvétele
+-	PUT/ /category/{categoryId}/item/{itemId}: tétel módosítása
+-	GET/ /category/{categoryId}/item/{itemId}: tétel lekérdezése
+-	DELETE/category/{categoryId}/item/{itemId}: tétel törlése
+
+
+## Adatbázis szekvencia diagram
+![GitHub Logo](/images/logo.png)
+Format: ![Alt Text](url)
+
+## Könyvtárstruktúra
+1.	…etelrendeles.annotations: egyedi annotációk
+- Role.java
+-	…etelrendeles.config
+-	AuthInterceptor.java
+2. …etelrendeles.controller: HTTP kérésekért, végpontokért felelős kontrollerek
+-	UserController.java
+-	OrderController.java
+-	CategoryController.java
+-	ItemController.java
+3. …etelrendeles.entity: a tábláknak megfelelő entitások
+-	BaseEntity.java
+-	User.java
+-	Order.java
+-	Category.java
+-	Item.java
+4.	…etelrendeles.repository: adatbázissal kommunikáló CrudRepositoryk
+-	UserRepository.java
+-	OrderRepository.java
+-	CategoryRepository.java
+-	ItemRepository.java
+5.	…etelrendeles.service: az üzleti logikákat tartalmazza, entitások elérése pl.
+-	UserService.java
+-	OrderService.java
+-	CategoryService.java
+-	ItemService.java
+
+
+
