@@ -43,6 +43,9 @@
 
 ## Adatbázis terv
 
+Inline-style: 
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/db.png "Adatbazis modelje")
+
 ### Végpontok:
 1. __user:__
 -	GET/user: bejelentkezett felhasználó 
@@ -76,8 +79,9 @@
 
 
 ## Adatbázis szekvencia diagram
-![GitHub Logo](/images/logo.png)
-Format: ![Alt Text](url)
+
+Inline-style: 
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/sequence.jpg "Szekvencia diagramm")
 
 ## Könyvtárstruktúra
 1.	…etelrendeles.annotations: egyedi annotációk
