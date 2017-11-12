@@ -4,7 +4,6 @@ import hu.elte.alkfejl.etelrendeles.entity.User;
 import hu.elte.alkfejl.etelrendeles.service.UserNotValidException;
 import hu.elte.alkfejl.etelrendeles.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

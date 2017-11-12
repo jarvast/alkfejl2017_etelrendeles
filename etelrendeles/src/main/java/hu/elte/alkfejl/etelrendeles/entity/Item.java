@@ -24,7 +24,7 @@ public class Item extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String name;
-
+    
     @JoinColumn
     @ManyToOne(targetEntity = Category.class, optional = false)
     @JsonIgnoreProperties("items")
