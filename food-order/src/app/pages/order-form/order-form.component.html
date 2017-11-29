@@ -1,0 +1,57 @@
+<div class="page-body">
+  <h2 class="mat-h2">New Order</h2>
+  <form [formGroup]="orderForm" novalidate>
+    <div class="form-control">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name" formControlName="name">
+        <mat-error *ngIf="name.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-control">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Address" formControlName="address">
+        <mat-error *ngIf="address.hasError('required')">
+          Address is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-control">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Phone" formControlName="phone">
+        <mat-error *ngIf="phone.hasError('required')">
+          Phone is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!orderForm.valid">Send</button>
+    <a mat-button class="mat-accent" routerLink="/categories">Back</a>
+  </form>
+  <h2 class="mat-h2">Your Cart</h2>
+  
+    <mat-table #table [dataSource]="cartItems">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.description}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef> Price</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.price}}</mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <h1>{{total}}</h1>
+</div>
