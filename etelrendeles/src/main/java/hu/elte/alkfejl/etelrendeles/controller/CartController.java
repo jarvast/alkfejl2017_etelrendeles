@@ -11,14 +11,16 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Scope("session")
-@RequestMapping("/cart")
+@RequestMapping("/api/cart")
 public class CartController {
     
     private Cart cart = new Cart();
@@ -36,18 +38,22 @@ public class CartController {
     public ResponseEntity<Double> price() {
         return ResponseEntity.ok(cart.getSubTotalCost());
     }
+    
     @Role({ADMIN, USER})
-    @DeleteMapping("")
-    public ResponseEntity delete() {
+    @DeleteMapping("/del")
+    public ResponseEntity deleteCart() {
+        System.out.println("TÖRÖLTEM11");
         cart.clear();
+        System.out.println("TÖRÖLTEM22");
         return ResponseEntity.ok().build();
     }
     
     @Role({ADMIN, USER})
-    @PutMapping("")
-    public ResponseEntity<Cart> addItems(@RequestParam("itemId") Long itemId) {
+    @PostMapping("")
+    public ResponseEntity<Cart> addItems(@RequestBody Long itemId) {
         Item item = itemService.read(itemId);
         cart.addItem(item);
+        System.out.println("kosárba rakva" + item.getName());
         return ResponseEntity.ok(cart);
     }
 }

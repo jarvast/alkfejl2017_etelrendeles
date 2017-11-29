@@ -35,7 +35,7 @@ public class Order extends BaseEntity {
     @JoinTable(name = "order_items",
             joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"))
-    @JsonIgnore
+    //@JsonIgnore
     private List<Item> items;
 
     @Column(nullable = false)

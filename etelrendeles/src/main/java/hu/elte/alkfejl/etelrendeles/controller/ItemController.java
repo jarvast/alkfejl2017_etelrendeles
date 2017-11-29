@@ -5,6 +5,7 @@ import hu.elte.alkfejl.etelrendeles.entity.Category;
 import hu.elte.alkfejl.etelrendeles.entity.Item;
 import hu.elte.alkfejl.etelrendeles.entity.Order;
 import static hu.elte.alkfejl.etelrendeles.entity.User.Role.ADMIN;
+import static hu.elte.alkfejl.etelrendeles.entity.User.Role.GUEST;
 import static hu.elte.alkfejl.etelrendeles.entity.User.Role.USER;
 import hu.elte.alkfejl.etelrendeles.service.CategoryService;
 import hu.elte.alkfejl.etelrendeles.service.ItemService;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class ItemController {
 
     @Autowired
@@ -49,7 +52,7 @@ public class ItemController {
         return ResponseEntity.ok(itemService.searchForName(categoryService.read(categoryId), searchWord));
     }
 
-    @GetMapping("/category/{id}/items")
+    @GetMapping("/categories/{id}/items")
     private ResponseEntity<Iterable<Item>> listByCategory(@PathVariable(value = "id") Long categoryId) {
         Category category = categoryService.read(categoryId);
         return ResponseEntity.ok(itemService.listByCategory(category));
@@ -74,8 +77,8 @@ public class ItemController {
         return ResponseEntity.ok(updated);
     }
 
-    @Role({ADMIN, USER})
-    @GetMapping("/category/{categoryId}/item/{itemId}")
+    @Role({ADMIN, USER, GUEST})
+    @GetMapping("/categories/{categoryId}/items/{itemId}")
     private ResponseEntity<Item> read(@PathVariable(value = "categoryId") long categoryId, @PathVariable(value = "itemId") long itemId) {
         Item read = itemService.read(itemId);
         //System.out.println(read.getOrderList().toString());

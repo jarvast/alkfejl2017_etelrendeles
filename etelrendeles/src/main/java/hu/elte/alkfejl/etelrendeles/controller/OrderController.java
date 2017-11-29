@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrderController {
 
     @Autowired
@@ -44,13 +44,14 @@ public class OrderController {
     @Role({ADMIN, USER})
     @PostMapping("")
     public ResponseEntity<Order> create(@RequestBody Order order) {
+        System.out.println("rendelés: " + order.getItems());
         return ResponseEntity.ok(orderService.create(order, userService.getLoggedInUser()));
     }
 
-    @Role({USER})
-    @PutMapping("/{id}/addItem")
-    public ResponseEntity<Order> addItems(@PathVariable long id, @RequestParam("itemId") Long itemId, Model model) {
-        Order updatedOrder = orderService.read(id);
+    /*@Role({USER})
+    @PutMapping("/addItem")
+    public ResponseEntity<Order> addItems(@RequestBody Item[] items , Model model) {
+        Order updatedOrder = orderService.read();
         Item item = itemService.read(itemId);
 
         if (updatedOrder != null) {
@@ -58,7 +59,7 @@ public class OrderController {
         }
         orderService.update(id, updatedOrder);
         return ResponseEntity.ok(updatedOrder);
-    }
+    }*/
 
     @Role(ADMIN)
     @GetMapping("/searchStatus")

@@ -34,7 +34,7 @@ INSERT INTO ITEMS (NAME, DESCRIPTION, IS_SPICY, IS_VEGETARIAN, PRICE, CATEGORY_I
 INSERT INTO ITEMS (NAME, DESCRIPTION, IS_SPICY, IS_VEGETARIAN, PRICE, CATEGORY_ID) VALUES ('Hawaii burger', 'puffs, roston chicken breast, vegetables, pineapple, cheese, mayonnaise, barbecue sauce, chicken breast fillet', 'false', 'false', '950' , 2);
 INSERT INTO ITEMS (NAME, DESCRIPTION, IS_SPICY, IS_VEGETARIAN, PRICE, CATEGORY_ID) VALUES ('Kentucky beef burger', 'puffs, beef, vegetables, bacon, grillezett cheese, garlic mayonnaise', 'false', 'false', '1250', 2);
 INSERT INTO ITEMS (NAME, DESCRIPTION, IS_SPICY, IS_VEGETARIAN, PRICE, CATEGORY_ID) VALUES ('Hell burger', 'puffs, beef, vegetables, fried onion, jalapeno, cheddar sajt, smoked cheese, pepper sauce', 'false', 'false', '1350' , 2);
-INSERT INTO ITEMS (NAME, DESCRIPTION, IS_SPICY, IS_VEGETARIAN, PRICE, CATEGORY_ID) VALUES ('Roszti burger', 'puffs, beef, vegetables, dupla bacon, röszti, cheese, mustard, barbecue sauce', 'false', 'false', '850' , 2);
+INSERT INTO ITEMS (NAME, DESCRIPTION, IS_SPICY, IS_VEGETARIAN, PRICE, CATEGORY_ID) VALUES ('Roszti burger', 'puffs, beef, vegetables, dupla bacon, roszti, cheese, mustard, barbecue sauce', 'false', 'false', '850' , 2);
 INSERT INTO ITEMS (NAME, DESCRIPTION, IS_SPICY, IS_VEGETARIAN, PRICE, CATEGORY_ID) VALUES ('Vega burger', 'puffs, fried cheese, fried onions, salad, cabbage, cucumber, tomato, tartar sauce', 'false', 'false', '850' , 2);
 
 --levesek
