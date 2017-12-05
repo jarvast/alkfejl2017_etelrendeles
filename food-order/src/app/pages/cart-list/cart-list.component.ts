@@ -5,6 +5,7 @@ import {DataSource} from "@angular/cdk/collections";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/observable/of";
 import { CartService } from "../../services/cart.service";
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-cart-list',
@@ -13,43 +14,30 @@ import { CartService } from "../../services/cart.service";
 })
 export class CartListComponent {
   displayedColumns: String[] = ['name', 'description','price'];
-  cartItems: DataSource<any>;
+  cartItems: MatTableDataSource<Item>;
   total : number;
+  emptyCart : boolean;
 
-  constructor(private cartService: CartService) {
-    //this.cart.items = this.cartItems;
-    //this.reload();
-  }
+  constructor(private cartService: CartService) { }
   ngOnInit() {
     this.reload();
   }
   private reload(){
-    this.cartItems = new CartDataSource(this.cartService);
-    //this.cartService.getCart().subscribe(items => this.cartItems=items)
-    this.cartService.getTotal().subscribe(res => {
-      this.total=res; 
+    this.cartService.getCart().subscribe(items => {
+      this.cartItems = new MatTableDataSource(items);
+    });
+    this.cartService.getTotal().subscribe(sum => {
+      this.total=sum; 
+      if (this.total===0) {
+        this.emptyCart=false;
+      } else {
+        this.emptyCart=true;
+      }
     });
   }
 
   deleteCart() {
-    console.log("dssdaasd");
     this.cartService.deleteCart();
-    console.log("reload előtt")
     this.reload();
-    console.log("reload után")
-  }
-
-
-}
-export class CartDataSource extends DataSource<any> {
-  constructor(private categoryService: CartService) {
-    super();
-  }
-
-  connect(): Observable<Item[]> {
-    return this.categoryService.getCart();
-  }
-
-  disconnect() {
   }
 }

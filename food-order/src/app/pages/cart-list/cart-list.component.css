@@ -1,0 +1,12 @@
+h1{
+    border-bottom: 2px solid red;
+    background-color: lightgrey;
+    margin-left: 80px;
+    margin-right: 1600px;
+}
+button{
+    margin-left: 80px;
+}
+mat-table{
+    background-color: rgba(245, 182, 165, 0.774);
+}

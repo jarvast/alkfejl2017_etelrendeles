@@ -15,7 +15,6 @@ export class Server {
   private static prefix: String = 'api';
 
   static routeTo(route: String) {
-    console.log("ROUTETO" + `http://${Server.address}:${Server.port}/${Server.prefix}/${route}`)
     return `http://${Server.address}:${Server.port}/${Server.prefix}/${route}`
   }
 }

@@ -15,8 +15,7 @@ public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public Item create(Item item, Category category) {
-        item.setCategory(category);
+    public Item create(Item item) {
         return itemRepository.save(item);
     }
 

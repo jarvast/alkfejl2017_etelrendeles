@@ -24,9 +24,6 @@ export class ItemDetailComponent implements OnInit {
   params => this.catId = params.catId,
   err => console.log(err)
   )
-  console.log("detailkajaid" + this.id);
-  console.log("detail catid" + this.catId);
-  console.log("item" + this.item.name);
 }
 
   ngOnInit() {

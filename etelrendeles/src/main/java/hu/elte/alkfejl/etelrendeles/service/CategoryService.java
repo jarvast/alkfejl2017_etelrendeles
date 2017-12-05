@@ -14,6 +14,9 @@ public class CategoryService {
     public Category read(long id) {
         return categoryRepository.findOne(id);
     }
+    public Category create(Category category) {
+        return categoryRepository.save(category);
+    }
 
     public Iterable<Category> listAll() {
         return categoryRepository.findAll();

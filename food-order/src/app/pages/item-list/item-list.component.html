@@ -1,42 +1,39 @@
 <div class="page-body">
-  <h2 class="mat-h2">{{categoryId}}</h2>
+  <h2 class="mat-h2">{{categoryName}}</h2>
 
   <mat-table #table [dataSource]="items">
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> Id</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell class="name-header" *matCellDef="let element"> {{element.name}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef> Description</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.description}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="price">
-      <mat-header-cell *matHeaderCellDef> Price</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.price}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.price}} Ft</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="isSpicy">
-      <mat-header-cell *matHeaderCellDef> Csipos</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.isSpicy}}</mat-cell>
+    <ng-container matColumnDef="spicy">
+      <mat-header-cell *matHeaderCellDef>Spicy</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.spicy?'✔':'✗'}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="isVegetarian">
-      <mat-header-cell *matHeaderCellDef> Vega</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.category.name}}</mat-cell>
+    <ng-container matColumnDef="vegetarian">
+      <mat-header-cell *matHeaderCellDef>Vegetarian</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.vegetarian?'✔':'✗'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <a mat-button [routerLink]="'/categories/' + categoryId + '/items/' + element.id">Details</a>
-        <button mat-button (click)="toCart(element.id)" class="mat-accent">Add to cart</button>
+        <button *ngIf="authService.isLoggedIn" mat-icon-button color="primary" (click)="toCart(element.id); openSnackBarOk();">
+            <mat-icon>add_shopping_cart</mat-icon>
+        </button>
       </mat-cell>
     </ng-container>
 

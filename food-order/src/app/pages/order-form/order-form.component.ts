@@ -8,35 +8,37 @@ import { Component, OnInit, Input, Output, OnChanges,
   import { CartService } from "../../services/cart.service";
   import { OrderService } from "../../services/order.service";
   import {Router} from "@angular/router";
+  import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-order-form',
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.css']
 })
-export class OrderFormComponent{
+export class OrderFormComponent implements OnInit{
 
   orderForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required]),
+    phone: new FormControl('', [Validators.required, Validators.pattern("[0-9]*")]),
   });
 
   displayedColumns: String[] = ['name', 'price'];
-  cartItems: DataSource<any> = new CartDataSource(this.cartService);
+  cartItems: MatTableDataSource<Item>;
   total : number;
   items: Item[];
   order : Order;
-  //@Input() order: Order;
-  //model: Order = null;
-  //@Output() onSubmit = new EventEmitter<Order>();
 
   constructor(private cartService: CartService, private orderService:OrderService, private router: Router) {
-    this.cartService.getCart().subscribe(ite => {
-      this.items=ite;
+  }
+  ngOnInit(){
+    this.cartService.getCart().subscribe(items => {
+      this.cartItems = new MatTableDataSource(items);
+      this.items = items;
     });
-    this.cartService.getTotal().subscribe(res => {
-      this.total=res;
+
+    this.cartService.getTotal().subscribe(sum => {
+      this.total=sum; 
     });
   }
 
@@ -50,35 +52,15 @@ export class OrderFormComponent{
     return this.orderForm.get('phone')
   }
 
-  /*ngOnChanges() {
-    this.model = Object.assign({}, this.order);
-  }
-
-  submit(form) {
-    if (!form.valid) {
-      return;
-    }
-    this.onSubmit.emit(this.model);
-  }*/
   submit() {
-    this.order = new Order(this.items, this.name.value, this.address.value, this.address.value);
-    console.log(this.order);
+    this.order = new Order(this.items, this.name.value, this.address.value, this.phone.value);
     this.orderService.create(this.order, this.items)
       .subscribe(
-        res => this.router.navigate(['/categories']),
+        res => {
+          this.router.navigate(['/categories']);
+          this.cartService.deleteCart();
+        },
         err => console.log(err)
-      )
-  }
-}
-export class CartDataSource extends DataSource<any> {
-  constructor(private categoryService: CartService) {
-    super();
-  }
-
-  connect(): Observable<Item[]> {
-    return this.categoryService.getCart();
-  }
-
-  disconnect() {
+      );
   }
 }

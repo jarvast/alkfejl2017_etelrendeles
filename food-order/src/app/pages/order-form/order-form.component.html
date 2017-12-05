@@ -1,9 +1,9 @@
 <div class="page-body">
-  <h2 class="mat-h2">New Order</h2>
+  <h2 class="mat-h2">Your Order</h2>
   <form [formGroup]="orderForm" novalidate>
     <div class="form-control">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Name" formControlName="name">
+        <input matInput placeholder="Name" formControlName="name" required>
         <mat-error *ngIf="name.hasError('required')">
           Name is <strong>required</strong>
         </mat-error>
@@ -12,7 +12,7 @@
 
     <div class="form-control">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Address" formControlName="address">
+        <input matInput placeholder="Address" formControlName="address" required>
         <mat-error *ngIf="address.hasError('required')">
           Address is <strong>required</strong>
         </mat-error>
@@ -21,17 +21,21 @@
 
     <div class="form-control">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Phone" formControlName="phone">
-        <mat-error *ngIf="phone.hasError('required')">
-          Phone is <strong>required</strong>
+        <input matInput placeholder="Phone" formControlName="phone" required>
+        <mat-error *ngIf="phone.hasError('pattern')">
+          Phone must be a <strong>number</strong>
         </mat-error>
+        <mat-error *ngIf="phone.hasError('required')">
+            Phone is <strong>required</strong>
+          </mat-error>
       </mat-form-field>
     </div>
-
+  <div class="buttons">
     <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!orderForm.valid">Send</button>
-    <a mat-button class="mat-accent" routerLink="/categories">Back</a>
+    <a mat-button class="mat-accent" routerLink="/cart">Back</a>
+  </div>
   </form>
-  <h2 class="mat-h2">Your Cart</h2>
+  <h2 class="mat-h2">Your Cart</h2><h1>Total : {{total}} Ft</h1>
   
     <mat-table #table [dataSource]="cartItems">
       <ng-container matColumnDef="name">
@@ -46,12 +50,10 @@
   
       <ng-container matColumnDef="price">
         <mat-header-cell *matHeaderCellDef> Price</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.price}}</mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.price}} Ft</mat-cell>
       </ng-container>
   
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-
-    <h1>{{total}}</h1>
 </div>

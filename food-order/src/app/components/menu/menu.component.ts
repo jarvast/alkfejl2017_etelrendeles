@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Role} from "../../model/User";
+import {Role, User} from "../../model/User";
 import {AuthService} from "../../services/auth.service";
-import {NavigationEnd, Router} from "@angular/router";
+import { Router, NavigationEnd } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 interface MenuItem {
   link: String;
@@ -15,19 +16,18 @@ interface MenuItem {
 })
 export class MenuComponent implements OnInit {
   private common: MenuItem[] = [
-    {link: '/help', title: 'Help'},
     {link: '/categories', title: 'Categories'}
   ];
 
   private roleMenus = new Map<String, MenuItem[]>([
     [Role.GUEST, [...this.common]],
-    [Role.USER, [...this.common , {link: '/cart', title: 'My Cart'}]],
-    [Role.ADMIN, [...this.common, {link: '/cart', title: 'My Cart'}]]
+    [Role.USER, [...this.common , {link: '/cart', title: 'My Cart'}, {link: '/orders', title: 'Orders'}]],
+    [Role.ADMIN, [...this.common, {link: '/cart', title: 'My Cart'}, {link: '/orders', title: 'Orders'}]]
   ]);
 
   menus: MenuItem[];
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private cartService: CartService) {
   }
 
   ngOnInit() {
@@ -37,7 +37,6 @@ export class MenuComponent implements OnInit {
       }
     })
   }
-
   setMenus() {
     if (this.authService.isLoggedIn) {
       this.menus = this.roleMenus.get(this.authService.user.role);
@@ -47,9 +46,12 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout().subscribe(
-      res => this.router.navigate(['/login']),
-      err => err
-    );
+    this.authService.logout().subscribe(res => {
+      this.authService.user = new User();
+      this.authService.isAdmin = false;
+      this.authService.isLoggedIn = false;
+      this.router.navigate(['/login']);
+    },
+    err => err);
   }
 }

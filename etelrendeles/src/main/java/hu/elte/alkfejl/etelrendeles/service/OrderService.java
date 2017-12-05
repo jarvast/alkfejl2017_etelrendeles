@@ -61,6 +61,13 @@ public class OrderService {
         return orderRepository.save(currentOrder);
     }
 
+    public Order deliver(Order oldOrder) {
+        oldOrder.setStatus(Status.DELIVERED);
+        oldOrder.setDelivered(Timestamp.valueOf(LocalDateTime.now()));
+        
+        return orderRepository.save(oldOrder);
+    }
+    
     public void delete(long id) {
         orderRepository.delete(id);
     }

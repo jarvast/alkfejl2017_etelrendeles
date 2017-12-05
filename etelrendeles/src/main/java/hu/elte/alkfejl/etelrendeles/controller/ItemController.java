@@ -40,8 +40,8 @@ public class ItemController {
         return ResponseEntity.ok(itemService.listAll());
     }
 
-    @Role({ADMIN, USER})
-    @GetMapping("/max")
+    
+    @GetMapping("/items/max")
     private ResponseEntity<Iterable<Item>> mostFrequent() {
         return ResponseEntity.ok(itemService.mostFrequent());
     }
@@ -65,9 +65,9 @@ public class ItemController {
     }
 
     @Role({ADMIN})
-    @PostMapping("/category/{id}/items")
-    public ResponseEntity<Item> create(@PathVariable(value = "id") long categoryId, @RequestBody Item item) {
-        return ResponseEntity.ok(itemService.create(item, categoryService.read(categoryId)));
+    @PostMapping("/items/new")
+    public ResponseEntity<Item> create(@RequestBody Item item) {
+        return ResponseEntity.ok(itemService.create(item));
     }
 
     @Role(ADMIN)

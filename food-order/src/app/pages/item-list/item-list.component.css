@@ -1,0 +1,11 @@
+.mat-table{
+    border-radius: 25px;
+    background-color: rgb(137, 230, 137);
+    overflow: auto;
+}
+.name-header{
+    font-size: 20px;
+}
+h2{
+    font-size: 30px;
+}

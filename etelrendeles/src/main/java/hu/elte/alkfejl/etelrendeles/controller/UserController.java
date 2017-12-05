@@ -27,11 +27,6 @@ public class UserController {
         }
         return ResponseEntity.badRequest().build();
     }
-   /* @GetMapping
-    public String login(Model model){
-        model.addAttribute(new User());
-        return "login";
-    }*/
     
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody User user){
@@ -43,21 +38,15 @@ public class UserController {
         }
     }
     
-   /* @GetMapping("/register")
-    public String register(Model model){
-        model.addAttribute("user", new User());
-        return "register";
-    }*/
-    
     @PostMapping("/register")
-    public User register(@RequestBody User user){
-        return userService.register(user);
+    public ResponseEntity<User> register(@RequestBody User user){
+        return ResponseEntity.ok(userService.register(user));
     }
     
     @PostMapping("/logout")
-    public ResponseEntity<User> logout(@RequestBody User user){
+    public ResponseEntity logout(@RequestBody User user){
         userService.logout();
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(204);
     }
     
 }

@@ -1,0 +1,51 @@
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+  <div class="example-container mat-elevation-z8">
+  
+    <mat-table [dataSource]="orders">
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef> Phone Number</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.phone}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef> Address</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.address}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="details">
+        <mat-header-cell *matHeaderCellDef>Details & Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+          <a mat-button [routerLink]="'/orders/' + element.id">Details</a>
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="received">
+        <mat-header-cell *matHeaderCellDef> Received</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.received | date:'yyyy-MM-dd HH:mm'}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="delivered">
+        <mat-header-cell *matHeaderCellDef> Delivered</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.delivered | date:'yyyy-MM-dd HH:mm'}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.status}}</mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>

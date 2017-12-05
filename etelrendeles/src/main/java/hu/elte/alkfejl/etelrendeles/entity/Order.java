@@ -1,6 +1,5 @@
 package hu.elte.alkfejl.etelrendeles.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.sql.Timestamp;
 import java.util.List;
@@ -35,7 +34,6 @@ public class Order extends BaseEntity {
     @JoinTable(name = "order_items",
             joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"))
-    //@JsonIgnore
     private List<Item> items;
 
     @Column(nullable = false)

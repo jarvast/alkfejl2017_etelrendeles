@@ -1,5 +1,6 @@
 package hu.elte.alkfejl.etelrendeles.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -31,7 +32,8 @@ public class Item extends BaseEntity {
     private Category category;
 
     @ManyToMany(mappedBy = "items", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("items")
+    //@JsonIgnoreProperties("items")
+    @JsonIgnore
     private List<Order> orderList;
 
     @Column

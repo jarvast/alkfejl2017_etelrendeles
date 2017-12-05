@@ -1,11 +1,29 @@
-<mat-toolbar id="top-menu" color="primary">
+<mat-toolbar id="top-menu" color="warn">
   <div class="left-side">
-    <h1 class="mat-h1">Food Order</h1>
+    <button mat-button routerLink="/help">
+      <mat-icon>home</mat-icon>
+      Food Order
+    </button>
+  </div>
+  <div *ngIf="authService.isAdmin" class="admin">
+    <button mat-button [matMenuTriggerFor]="menu">New</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/newitem">
+        <mat-icon>add</mat-icon>
+        <span>Food or drink</span>
+      </button>
+      <button mat-menu-item routerLink="/newcategory">
+        <mat-icon>add</mat-icon>
+        <span>Category</span>
+      </button>
+    </mat-menu>    
   </div>
 
   <div class="center">
     <a mat-button *ngFor="let menu of menus" [routerLink]="menu.link" routerLinkActive="active">{{menu.title}}</a>
   </div>
+
+  <div class="welcome" *ngIf="authService.isLoggedIn">Hello, {{ authService.user.username }}!</div>
 
   <div class="right-side">
     <div *ngIf="!authService.isLoggedIn" class="unauthorized">
@@ -13,7 +31,7 @@
       <a mat-button routerLink="/register"
          routerLinkActive="active">Register</a>
     </div>
-
+    
     <div *ngIf="authService.isLoggedIn" class="authorized">
       <button mat-button (click)="logout()">Logout</button>
     </div>

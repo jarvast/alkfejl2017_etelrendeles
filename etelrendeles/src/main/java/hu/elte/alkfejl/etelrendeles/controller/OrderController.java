@@ -1,25 +1,19 @@
 package hu.elte.alkfejl.etelrendeles.controller;
 
 import hu.elte.alkfejl.etelrendeles.annotations.Role;
-import hu.elte.alkfejl.etelrendeles.entity.Item;
 import hu.elte.alkfejl.etelrendeles.entity.Order;
-import hu.elte.alkfejl.etelrendeles.entity.Order.Status;
 import static hu.elte.alkfejl.etelrendeles.entity.User.Role.ADMIN;
 import static hu.elte.alkfejl.etelrendeles.entity.User.Role.USER;
-import hu.elte.alkfejl.etelrendeles.service.ItemService;
 import hu.elte.alkfejl.etelrendeles.service.OrderService;
 import hu.elte.alkfejl.etelrendeles.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,9 +25,6 @@ public class OrderController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private ItemService itemService;
 
     @Role({ADMIN, USER})
     @GetMapping("")
@@ -48,20 +39,7 @@ public class OrderController {
         return ResponseEntity.ok(orderService.create(order, userService.getLoggedInUser()));
     }
 
-    /*@Role({USER})
-    @PutMapping("/addItem")
-    public ResponseEntity<Order> addItems(@RequestBody Item[] items , Model model) {
-        Order updatedOrder = orderService.read();
-        Item item = itemService.read(itemId);
-
-        if (updatedOrder != null) {
-            updatedOrder.getItems().add(item);
-        }
-        orderService.update(id, updatedOrder);
-        return ResponseEntity.ok(updatedOrder);
-    }*/
-
-    @Role(ADMIN)
+    /*@Role(ADMIN)
     @GetMapping("/searchStatus")
     private ResponseEntity<Iterable<Order>> searchForStatus(@RequestParam("status") Status status) {
         return ResponseEntity.ok(orderService.searchForStatus(status));
@@ -77,13 +55,13 @@ public class OrderController {
     @GetMapping("/searchAddress")
     private ResponseEntity<Iterable<Order>> searchForAddress(@RequestParam("address") String searchWord) {
         return ResponseEntity.ok(orderService.searchForAddress(searchWord));
-    }
+    }*/
 
     @Role(ADMIN)
-    @PutMapping("/{id}")
-    private ResponseEntity<Order> update(@PathVariable long id, @RequestBody Order order) {
-        Order updated = orderService.update(id, order);
-        return ResponseEntity.ok(updated);
+    @GetMapping("/{id}/deliver")
+    private ResponseEntity<Order> deliver(@PathVariable(value = "id", required = true) String id) {
+        Order read = orderService.read(Integer.parseInt(id));
+        return ResponseEntity.ok(orderService.deliver(read));
     }
 
     @Role({ADMIN, USER})
@@ -97,6 +75,6 @@ public class OrderController {
     @DeleteMapping("/{id}")
     private ResponseEntity delete(@PathVariable long id) {
         orderService.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(204);
     }
 }

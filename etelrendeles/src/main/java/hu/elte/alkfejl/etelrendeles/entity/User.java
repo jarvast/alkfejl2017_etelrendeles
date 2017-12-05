@@ -1,7 +1,6 @@
 package hu.elte.alkfejl.etelrendeles.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +25,7 @@ public class User extends BaseEntity {
     @OneToMany(targetEntity = Order.class, mappedBy = "user")
     @JsonIgnore
     private List<Order> orders;
+    
 
     @Column(nullable = false, unique = true)
     private String username;

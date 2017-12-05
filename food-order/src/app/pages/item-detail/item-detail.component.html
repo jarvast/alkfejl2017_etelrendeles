@@ -1,13 +1,17 @@
-<h1 class="display-2">{{ item.name }}</h1>
-<dl class="row">
-  <dt class="col-sm-3">Description</dt>
-  <dd class="col-sm-9">{{ item.description }}</dd>
-
-  <dt class="col-sm-3">Price</dt>
-  <dd class="col-sm-9">{{ item.price }}</dd>
-
-  <dt class="col-sm-3">Csipos</dt>
-  <dd class="col-sm-9">{{ item.isSpicy }}</dd>
-
-</dl>
-<button mat-raised-button routerLink="/categories/">Back</button>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title><h1 class="mat-h1">{{item.name}}</h1></mat-card-title>
+    <mat-card-subtitle>{{item.price}} Ft</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      <b>Description</b> : {{item.description}}
+    </p>
+    <div>
+      <b>Spicy</b> : {{item.spicy?'✔':'✗'}}  <b>Vegetarian</b> : {{item.vegetarian?'✔':'✗'}}
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button [routerLink]="'/categories/' + catId">Back</button>
+  </mat-card-actions>
+</mat-card>

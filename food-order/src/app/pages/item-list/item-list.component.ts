@@ -7,45 +7,49 @@ import {Observable} from "rxjs/Observable";
 import {ActivatedRoute, Router} from "@angular/router";
 import "rxjs/add/observable/of";
 import { CategoryService } from '../../services/category.service';
+import { MatTableDataSource, MatSnackBar } from '@angular/material';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.css']
 })
-export class ItemListComponent  {
-  displayedColumns: String[] = ['name', 'id', 'description', 'price','isSpicy','isVegetarian','edit'];
+export class ItemListComponent implements OnInit{
+  displayedColumns: String[] = ['name', 'description', 'price','spicy','vegetarian','edit'];
   categoryId: number;
-  items: DataSource<any>;
-  category: Category;
+  items : MatTableDataSource<Item>;
+  categoryName: String;
 
-  constructor(private itemService: ItemService, private categoryService: CategoryService, private route: ActivatedRoute, private router: Router) {
+  constructor(private itemService: ItemService, private categoryService: CategoryService, private route: ActivatedRoute, private router: Router, private authService: AuthService, private snackBar: MatSnackBar) {
     this.route.params.subscribe(
     params => this.categoryId = params.id,
     err => console.log(err)
     )
-    this.items = new ItemDataSource(this.itemService,this.categoryId);
-    //this.category = this.categoryService.getCategory(this.categoryId);
-}
-toCart(id: number) {
-  this.itemService.toCart(id)
-    .subscribe(
-      res => console.log(res),
-      err => console.log(err)
-    );
 }
 
+ngOnInit(){
+  this.itemService.getItems(this.categoryId).subscribe(item =>{
+    this.items = new MatTableDataSource(item);
+  });
+  this.categoryService.getCategory(this.categoryId).subscribe(cat => {
+    this.categoryName = cat.name;
+  })
 }
-export class ItemDataSource extends DataSource<any> {
-  constructor(private itemService: ItemService, private id:number) {
-    super();
-    this.id=id;
+  toCart(id: number) {
+    this.itemService.toCart(id)
+      .subscribe(res=> res,
+        err => this.openSnackBarError()
+      );
+   }
+   openSnackBarOk() {
+    this.snackBar.open('Added to cart!','Ok' ,{
+      duration: 3000,
+    });
   }
-
-  connect(): Observable<Item[]> {
-    return this.itemService.getItems(this.id);
-  }
-
-  disconnect() {
+  openSnackBarError() {
+    this.snackBar.open('Price limit reached (20.000HUF)','Thanks' ,{
+      duration: 3000,
+    });
   }
 }

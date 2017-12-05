@@ -1,0 +1,25 @@
+<div class="page-body">
+    <h2 class="mat-h2">The most popular items ordered by our users -></h2>
+  
+    <mat-table #table [dataSource]="items">
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell class="name-header" *matCellDef="let element"> {{element.name}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.price}} Ft</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.category.name}}</mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  
+  </div>
+  

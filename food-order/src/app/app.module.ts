@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router'
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
 
 import {AppComponent} from './app.component';
 import {LoginComponent} from './pages/login/login.component';
@@ -25,6 +24,11 @@ import { CartListComponent } from './pages/cart-list/cart-list.component';
 import { CartService } from './services/cart.service';
 import { OrderFormComponent } from './pages/order-form/order-form.component';
 import { OrderService } from './services/order.service';
+import { OrderListComponent } from './pages/order-list/order-list.component';
+import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
+import { NewItemComponent } from './pages/new-item/new-item.component';
+import { NewCategoryComponent } from './pages/new-category/new-category.component';
+import { Top10ListComponent } from './pages/top10-list/top10-list.component';
 
 @NgModule({
   declarations: [
@@ -38,12 +42,16 @@ import { OrderService } from './services/order.service';
     ItemListComponent,
     ItemDetailComponent,
     CartListComponent,
-    OrderFormComponent
+    OrderFormComponent,
+    OrderListComponent,
+    OrderDetailComponent,
+    NewItemComponent,
+    NewCategoryComponent,
+    Top10ListComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    HttpModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),

@@ -1,5 +1,5 @@
 <div class="page-body">
-  <h2 class="mat-h2">Cart</h2>
+  <h2 class="mat-h2">Your Cart</h2>
 
   <mat-table #table [dataSource]="cartItems">
     <ng-container matColumnDef="name">
@@ -14,7 +14,7 @@
 
     <ng-container matColumnDef="price">
       <mat-header-cell *matHeaderCellDef> Price</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.price}}</mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.price}} Ft</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -23,5 +23,5 @@
 
 </div>
 
-<h1>{{total}}</h1>
-<button mat-raised-button routerLink="/orderform">Send</button><button mat-button (click)="deleteCart()" class="mat-accent">Delete cart</button>
+<h1>Total : {{total}} Ft</h1>
+<button mat-raised-button [disabled]="!emptyCart" routerLink="/orderform">Send order</button><button mat-button (click)="deleteCart()" class="mat-accent">Delete cart</button>

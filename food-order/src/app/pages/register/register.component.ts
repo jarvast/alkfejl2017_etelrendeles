@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../model/User";
+import {User, Role} from "../../model/User";
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-register',
@@ -16,17 +17,23 @@ export class RegisterComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private cartService: CartService) {
   }
 
   ngOnInit() {
   }
 
   submit() {
-    this.authService.register(new User(this.username.value, this.password.value, this.email.value))
-      .subscribe(
-        res => this.router.navigate(['/categories']),
-        err => console.log(err))
+    this.authService.register(new User(this.username.value, this.password.value, this.email.value)).subscribe(data => {
+      this.authService.user = data;
+      this.authService.isLoggedIn = true;
+      if (this.authService.user.role===Role.ADMIN){
+        this.authService.isAdmin = true;
+      }
+      this.cartService.deleteCart();
+      this.router.navigate(['/categories']);
+    },
+    err => console.log(err));
   }
 
   get username(): AbstractControl {

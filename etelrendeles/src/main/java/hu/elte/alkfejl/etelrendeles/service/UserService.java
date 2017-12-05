@@ -1,5 +1,6 @@
 package hu.elte.alkfejl.etelrendeles.service;
 
+import hu.elte.alkfejl.etelrendeles.entity.Cart;
 import hu.elte.alkfejl.etelrendeles.entity.User;
 import hu.elte.alkfejl.etelrendeles.repository.UserRepository;
 import lombok.Data;

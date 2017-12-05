@@ -4,13 +4,45 @@ import {
   MatInputModule,
   MatSelectModule,
   MatTableModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatCheckboxModule,
+  MatIconModule,
+  MatMenuModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatCardModule,
+  MatSnackBarModule
 } from '@angular/material';
 import {NgModule} from "@angular/core";
 
 @NgModule({
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule, MatTableModule, MatSelectModule],
-  exports: [MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule, MatTableModule, MatSelectModule],
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatSnackBarModule],
+  exports: [
+    MatFormFieldModule,
+    MatInputModule, MatButtonModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatSnackBarModule],
 })
 export class MaterialItemsModule {
 }

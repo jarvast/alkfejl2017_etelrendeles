@@ -17,6 +17,7 @@ public class Cart implements Serializable {
     public List<Item> items = new ArrayList<>();
 
     private double subTotalCost;
+    
 
     public void clear() {
         subTotalCost = 0.0;
@@ -26,5 +27,10 @@ public class Cart implements Serializable {
     public void addItem(Item item) {
         items.add(item);
         subTotalCost = Math.round(subTotalCost + item.getPrice());
+    }
+    public void undoAddItem() {
+        Item lastItem = items.get(items.size()-1);
+        items.remove(lastItem);
+        subTotalCost = Math.round(subTotalCost - lastItem.getPrice());
     }
 }

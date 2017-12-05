@@ -1,0 +1,54 @@
+<div class="page-body" id="new-item">
+  <h2 class="mat-h2">Adding new Item</h2>
+  <form [formGroup]="itemForm" novalidate>
+    <div class="form-group">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name" formControlName="name" required>
+        <mat-error *ngIf="name.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Description" formControlName="description">
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Price" formControlName="price" required>
+        <mat-error *ngIf="price.hasError('required')">
+          Price is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Choose a category" formControlName="category">
+            <mat-option *ngFor="let cat of categories" [value]="cat">
+                {{ cat.name }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="category.hasError('required')">
+            Category is <strong>required</strong>
+          </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+        <mat-checkbox type="checkbox" formControlName="spicy">Spicy</mat-checkbox>
+    </div>
+
+    <div class="form-group">
+        <mat-checkbox type="checkbox" formControlName="vegetarian">Vegetarian</mat-checkbox>
+    </div>
+
+    <div class="buttons">
+    <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!itemForm.valid">Submit</button>
+    <a mat-button class="mat-accent" routerLink="/categories">Back</a>
+    </div>
+  </form>
+</div>

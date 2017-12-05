@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
-import {Http} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Category} from "../model/Category";
 import {Routes, Server} from "../utils/ServerRoutes";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class CategoryService {
+  categories : Category[]
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
-  getCategories(): Observable<Category[]> {
-    return this.http.get(Server.routeTo(Routes.CATEGORIES))
-      .map(res => res.json())
+  getCategories() : Observable<Category[]>{
+    return this.http.get<Category[]>(Server.routeTo(Routes.CATEGORIES));
   }
 
-  getCategory(id: number) {
-    return this.http.get(Server.routeTo(Routes.CATEGORIES) + '/' + id)
-      .map(res => res.json())
+  getCategory(id: number): Observable<Category> {
+    return this.http.get<Category>(Server.routeTo(Routes.CATEGORIES) + '/' + id);
+  }
+  create(category: Category){
+    return this.http.post(Server.routeTo(Routes.CATEGORIES) + '/new',category);
   }
 }

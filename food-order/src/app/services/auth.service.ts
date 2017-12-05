@@ -1,42 +1,31 @@
 import {Injectable} from '@angular/core';
 import {Http} from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import {User} from "../model/User";
+import {Role} from "../model/User";
 import {Routes, Server} from "../utils/ServerRoutes";
-import { HttpClient } from '@angular/common/http/src/client';
 import 'rxjs/add/operator/map'
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
   user: User;
   isLoggedIn: boolean = false;
+  isAdmin: boolean = false;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.user = new User();
   }
 
   login(user: User) {
-    return this.http.post(Server.routeTo(Routes.LOGIN), user)
-      .map(res => {
-        this.isLoggedIn = true;
-        this.user = res.json();
-        return this.user;
-      })
+    return this.http.post<User>(Server.routeTo(Routes.LOGIN), user);
   }
 
   register(user: User) {
-    return this.http.post(Server.routeTo(Routes.REGISTER), user)
-      .map(res => {
-        this.isLoggedIn = true;
-        this.user = res.json();
-        return this.user;
-      })
+    return this.http.post<User>(Server.routeTo(Routes.REGISTER), user);
   }
 
   logout() {
-    return this.http.post(Server.routeTo(Routes.LOGOUT),this.user)
-      .map(res => {
-        this.user = new User();
-        this.isLoggedIn = false;
-      })
+    return this.http.post(Server.routeTo(Routes.LOGOUT),this.user);
   }
 }

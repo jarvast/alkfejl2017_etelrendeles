@@ -12,10 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -42,18 +40,26 @@ public class CartController {
     @Role({ADMIN, USER})
     @DeleteMapping("/del")
     public ResponseEntity deleteCart() {
-        System.out.println("TÖRÖLTEM11");
         cart.clear();
-        System.out.println("TÖRÖLTEM22");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(204);
     }
     
     @Role({ADMIN, USER})
     @PostMapping("")
-    public ResponseEntity<Cart> addItems(@RequestBody Long itemId) {
+    public ResponseEntity<Cart> addItems(@RequestBody Long itemId) throws FullCartException{
         Item item = itemService.read(itemId);
         cart.addItem(item);
-        System.out.println("kosárba rakva" + item.getName());
+        if (cart.getSubTotalCost()>20000){
+            cart.undoAddItem();
+            throw new FullCartException();
+        }
         return ResponseEntity.ok(cart);
+    }
+
+    private static class FullCartException extends Exception {
+
+        public FullCartException() {
+            System.out.println("");
+        }
     }
 }

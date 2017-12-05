@@ -1,0 +1,17 @@
+<div class="page-body" id="new-item">
+  <h2 class="mat-h2">Adding new Category</h2>
+  <form [formGroup]="categoryForm" novalidate>
+    <div class="form-group">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name of category" formControlName="name" required>
+        <mat-error *ngIf="name.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="buttons">
+    <button mat-raised-button class="mat-primary" (click)="submit()" [disabled]="!categoryForm.valid">Create</button>
+    <a mat-button class="mat-accent" routerLink="/categories">Back</a>
+    </div>
+  </form>
+</div>
