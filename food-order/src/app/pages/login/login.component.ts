@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
       if (this.authService.user.role===Role.ADMIN){
         this.authService.isAdmin = true;
       }
-      this.cartService.deleteCart();
       this.router.navigate(['/categories']);
     },
     err => this.openSnackBar())

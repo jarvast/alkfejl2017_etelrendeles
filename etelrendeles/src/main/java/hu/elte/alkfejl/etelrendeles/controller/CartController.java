@@ -6,6 +6,7 @@ import hu.elte.alkfejl.etelrendeles.entity.Item;
 import static hu.elte.alkfejl.etelrendeles.entity.User.Role.ADMIN;
 import static hu.elte.alkfejl.etelrendeles.entity.User.Role.USER;
 import hu.elte.alkfejl.etelrendeles.service.ItemService;
+import hu.elte.alkfejl.etelrendeles.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
@@ -20,40 +21,43 @@ import org.springframework.web.bind.annotation.RestController;
 @Scope("session")
 @RequestMapping("/api/cart")
 public class CartController {
-    
-    private Cart cart = new Cart();
-    
+
     @Autowired
     private ItemService itemService;
-    
+
+    @Autowired
+    private UserService userService;
+
     @Role({ADMIN, USER})
     @GetMapping("")
     public ResponseEntity<Iterable<Item>> list() {
-        return ResponseEntity.ok(cart.getItems());
+        return ResponseEntity.ok(userService.getLoggedInUser().getCart().getItems());
     }
+
     @Role({ADMIN, USER})
     @GetMapping("/full")
     public ResponseEntity<Double> price() {
-        return ResponseEntity.ok(cart.getSubTotalCost());
+        return ResponseEntity.ok(userService.getLoggedInUser().getCart().getSubTotalCost());
     }
-    
+
     @Role({ADMIN, USER})
     @DeleteMapping("/del")
     public ResponseEntity deleteCart() {
-        cart.clear();
+        userService.getLoggedInUser().getCart().clear();
         return ResponseEntity.ok(204);
     }
-    
+
     @Role({ADMIN, USER})
     @PostMapping("")
-    public ResponseEntity<Cart> addItems(@RequestBody Long itemId) throws FullCartException{
+    public ResponseEntity<Cart> addItems(@RequestBody Long itemId) throws FullCartException {
         Item item = itemService.read(itemId);
+        Cart cart = userService.getLoggedInUser().getCart();
         cart.addItem(item);
-        if (cart.getSubTotalCost()>20000){
+        if (cart.getSubTotalCost() > 20000) {
             cart.undoAddItem();
             throw new FullCartException();
         }
-        return ResponseEntity.ok(cart);
+        return ResponseEntity.ok(userService.getLoggedInUser().getCart());
     }
 
     private static class FullCartException extends Exception {

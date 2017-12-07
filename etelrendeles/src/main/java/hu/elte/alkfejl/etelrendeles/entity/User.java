@@ -26,6 +26,8 @@ public class User extends BaseEntity {
     @JsonIgnore
     private List<Order> orders;
     
+    private Cart cart;
+    
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -42,5 +44,8 @@ public class User extends BaseEntity {
 
     public enum Role {
         GUEST, USER, ADMIN
+    }
+    public void initCart(){
+        this.cart= new Cart();
     }
 }

@@ -1,6 +1,5 @@
 package hu.elte.alkfejl.etelrendeles.service;
 
-import hu.elte.alkfejl.etelrendeles.entity.Cart;
 import hu.elte.alkfejl.etelrendeles.entity.User;
 import hu.elte.alkfejl.etelrendeles.repository.UserRepository;
 import lombok.Data;
@@ -20,14 +19,19 @@ public class UserService {
 
     public User login(User user) throws UserNotValidException {
         if (isValid(user)) {
-            return this.user = userRepository.findByUsername(user.getUsername());
+            this.user = userRepository.findByUsername(user.getUsername());
+            this.user.initCart();
+            System.out.println(this.user.getCart());
+            return this.user;
         }
         throw new UserNotValidException();
     }
 
     public User register(User user) {
         user.setRole(User.Role.USER);
-        return this.user = userRepository.save(user);
+        this.user = userRepository.save(user);
+        this.user.initCart();
+        return this.user;
     }
 
     public boolean isValid(User user) {
