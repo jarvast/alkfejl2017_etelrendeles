@@ -1,8 +1,8 @@
-h1{
+.total{
     border-bottom: 2px solid red;
     background-color: lightgrey;
-    margin-left: 80px;
-    margin-right: 1600px;
+    margin-left: 5%;
+    margin-right: 70%;
 }
 button{
     margin-left: 80px;
