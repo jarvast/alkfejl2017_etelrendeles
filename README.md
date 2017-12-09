@@ -89,6 +89,11 @@
 Rendelés leadása:
 ![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/szekvencia.png "Szekvencia diagram")
 
+
+**Funckió leírása:**
+A főoldalról a login képernyőre lépve meg kell adnunk a felhasználónév/ jelszó párosunkat, majd sikeres bejelentkezés után a program a kategóriák listájára irányít át. Kategóriaválasztás után választanunk kell egy vagy több tételt, amit a kosár gombra kattintva beteszünk a kosárba. A 'My Cart' gombra kattintva megtekinthetjük a kosarunk tartalmát és ha elégedettek vagyunk a 'Send order' gombbal elküldhetjük a rendelést vagy a 'Delete cart' gombbal ki is üríthetjük a kosarat. Az új rendelés űrlapot ki kell töltenünk kötelezően a név, cím, telefonszám (szám kell, hogy legyen) hármassal, ezután pedig el is küldhetjük a rendelést a 'Send' gomb segítségével.
+
+
 ## Könyvtárstruktúra
 1.	…etelrendeles.annotations: egyedi annotációk
 - Role.java
