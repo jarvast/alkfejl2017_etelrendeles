@@ -2,7 +2,7 @@
 
 ## Funkcionális követelmények
 
-1. Vendégként a főoldalon kategóriánként ételeket, illetve a legnépszerűbb ételeket és italokat lehet látni.
+1. Vendégként a főoldalon üdvözlést, illetve a legnépszerűbb ételeket és italokat lehet látni.
 2. Vendégként lehet kategóriát választva az ételek között böngészni és leírásukat olvasni.
 3. Alkalmazottként be lehet jelentkezni / ki lehet jelentkezni.
 4. Felhasználóként lehet ételeket/italokat helyezni a kosárba 20.000 Ft-ig.
