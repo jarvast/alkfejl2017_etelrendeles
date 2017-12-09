@@ -44,6 +44,12 @@
 
 #### Fejlesztői környezet: NetBeans
 
+#### A frontend megvalósításához a következő technológiákat, modelleket használtuk:
+- Angular 5, TypeScript nyelvi alapon
+- Angular Material: design komponensek
+
+#### Fejlesztői környezet: Visual Studio Code
+
 ## Adatbázis terv
 
 ![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/db.png "Adatbazis modellje")
@@ -163,26 +169,58 @@ Rendelés leadása:
 
 **Főoldal**
 
-#### Tesztelés
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/főoldal.png "Főoldal screen")
 
-Teszteléshez az Angular beépített end 2 end tesztekre használható Protractort használjuk, ezt az **npm run e2e** paranccsal indíthatjuk. Az eredmény itt látható: 
+**Bejelentkezés felület**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/login.jpg "Login screen")
+
+**Tételek listája**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/itemlist.png "Item lista screen")
+
+**Saját kosár**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/cart.png "Cart screen")
+
+**Új rendelés leadása felület**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/neworder.png "Új rendelés screen")
+
+**Rendelések listája**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/orderlist.png "Rendeléslista screen")
+
+**Rendelés kezelése felület**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/orderdetail.png "Rendelés részletek screen")
+
+**Új étel/ital űrlap**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/newitem.png "Új tétel screen")
+
+### Tesztelés
+
+Teszteléshez az Angular beépített end2end tesztekre használható Protractort használjuk, ezt az **npm run e2e** paranccsal indíthatjuk. Az eredmény itt látható: 
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/teszt.png "Tesztelés")
 
 
 
 ## Felhasználói dokumentáció
 
-### Telepítés 
+### Telepítés
 #### Telepítés előtt pár szükséges lépés
   - Kell NodeJS és az npm amit itt lehet letölteni : [www.nodejs.org](https://www.nodejs.org)
   - Internet elérés
 
 #### Telepítés
 1. Látogasson el a 	[https://github.com/jarvast/alkfejl2017_etelrendeles](https://github.com/jarvast/alkfejl2017_etelrendeles) oldalra.
-2. Itt kattintson a **"Clone and Download"** gombra, és azon belül kattintson a **"Download as Zip"** gombra.
-3. A letöltött állományt csomagoljuk ki
+2. Itt kattintson a **"Clone or Download"** gombra, és azon belül kattintson a **"Download as Zip"** gombra.
+3. A letöltött állományt csomagoljuk ki.
 4. Az etelrendeles könyvtár tartalmazza a szervert, ezt importálás után a pom.xml segítségével a spring-boot:run paranccsal indítsuk el.
 5. A food-order könyvtár tartalmazza a front end részt, ebben a mappában indítsuk el az npm install parancsot.
-6. Az **npm start** paranccsal ezután elindíthatjuk a programot.
+6. A telepítés befejezése után az **npm start** paranccsal ezután elindíthatjuk a programot.
 
 ### Használata
 1. Böngészőben a keresősávba írjuk be a localhost:4200 elérést.
