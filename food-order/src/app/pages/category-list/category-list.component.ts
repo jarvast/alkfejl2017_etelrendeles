@@ -14,13 +14,12 @@ import { MatTableDataSource } from "@angular/material";
 export class CategoryListComponent implements OnInit{
 
   displayedColumns: String[] = ['name'];
-  categories : Category[] = [];
-  categori : MatTableDataSource<Category>;
+  categories : MatTableDataSource<Category>;
 
   constructor(private categoryService: CategoryService) { }
   ngOnInit(){
     this.categoryService.getCategories().subscribe(cat => {
-      this.categori = new MatTableDataSource(cat);
+      this.categories = new MatTableDataSource(cat);
     });
   }
 }

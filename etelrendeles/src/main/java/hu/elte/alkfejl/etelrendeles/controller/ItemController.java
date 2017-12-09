@@ -46,11 +46,11 @@ public class ItemController {
         return ResponseEntity.ok(itemService.mostFrequent());
     }
 
-    @Role({ADMIN, USER})
+    /*@Role({ADMIN, USER})
     @GetMapping("/category/{id}/item/search/{keyWord}")
     private ResponseEntity<Iterable<Item>> searchForNameInCategory(@PathVariable(value = "id") Long categoryId, @PathVariable(value = "keyWord") String searchWord) {
         return ResponseEntity.ok(itemService.searchForName(categoryService.read(categoryId), searchWord));
-    }
+    }*/
 
     @GetMapping("/categories/{id}/items")
     private ResponseEntity<Iterable<Item>> listByCategory(@PathVariable(value = "id") Long categoryId) {
@@ -70,12 +70,12 @@ public class ItemController {
         return ResponseEntity.ok(itemService.create(item));
     }
 
-    @Role(ADMIN)
+   /* @Role(ADMIN)
     @PutMapping("/category/{categoryId}/item/{itemId}")
     private ResponseEntity<Item> update(@PathVariable(value = "categoryId") long categoryId, @PathVariable(value = "itemId") long itemId, @RequestBody Item item) {
         Item updated = itemService.update(itemId, item, categoryService.read(categoryId));
         return ResponseEntity.ok(updated);
-    }
+    }*/
 
     @Role({ADMIN, USER, GUEST})
     @GetMapping("/categories/{categoryId}/items/{itemId}")
@@ -85,11 +85,11 @@ public class ItemController {
         return ResponseEntity.ok(read);
     }
 
-    @Role(ADMIN)
+    /*@Role(ADMIN)
     @DeleteMapping("/category/{categoryId}/item/{itemId}")
     private ResponseEntity delete(@PathVariable(value = "categoryId") long categoryId, @PathVariable(value = "itemId") long itemId) {
         itemService.delete(itemId);
         return ResponseEntity.ok().build();
-    }
+    }*/
 
 }

@@ -1,7 +1,7 @@
 <div class="page-body">
   <h2 class="mat-h2">Categories</h2>
 
-  <mat-table #table [dataSource]="categori">
+  <mat-table #table [dataSource]="categories">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
