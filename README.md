@@ -2,32 +2,35 @@
 
 ## Funkcionális követelmények
 
-1. Vendégként a főoldalon kategóriánként ételeket, illetve a 10 legnépszerűbb ételt/italt lehet látni.
+1. Vendégként a főoldalon kategóriánként ételeket, illetve a legnépszerűbb ételeket és italokat lehet látni.
 2. Vendégként lehet kategóriát választva az ételek között böngészni és leírásukat olvasni.
-3. Vendégként lehet ételeket/italokat helyezni a kosárba 20.000 Ft-ig.
-4. Vendégként lehet a kosár tartalmát megtekinteni, illetve eltávolítani tételeket belőle.
-5. Vendégként lehet a kosár alapján rendelést leadni (név, cím, telefonszám) adatok megadásával.
-6. Vendégként lehet a rendelést törölni.
-7. Alkalmazottként be lehet jelentkezni / ki lehet jelentkezni.
-8. Alkalmazottként lehet új ételt/italt hozzáadni.
-9. Alkalmazottként lehet listázni a leadott / teljesített rendeléseket.
-10. Alkalmazottként a rendelések listáját lehet szűrni, illetve teljesítettnek jelölni a rendelést.
+3. Alkalmazottként be lehet jelentkezni / ki lehet jelentkezni.
+4. Felhasználóként lehet ételeket/italokat helyezni a kosárba 20.000 Ft-ig.
+5. Felhasználóként lehet a kosár tartalmát megtekinteni, illetve törölni a tartalmát.
+6. Felhasználóként lehet a saját leadott rendeléseket megtekinteni.
+7. Felhasználóként lehet a kosár alapján rendelést leadni (név, cím, telefonszám) adatok megadásával.
+8. Alkalmazottként be lehet jelentkezni / ki lehet jelentkezni.
+9. Alkalmazottként lehet új ételt/italt hozzáadni.
+10. Alkalmazottként lehet új kategóriát hozzáadni.
+11. Alkalmazottként lehet listázni az összes rendelést rendelést illetve szűrni közöttük.
+12. Alkalmazottként az egyes rendeléseket lehet törölni vagy kézbesítettnek jelölni.
 
 ## Nem funkcionális követelmények
 
 - Felhasználóbarát, ergonomikus elrendezés és kinézet.
 - Gyors működés.
-- Biztonságos működés: jelszavak tárolása, funkciókhoz való hozzáférés.
+- Biztonságos működés: funkciókhoz való hozzáférés korlátozása jelszóval és szerepkörök bevezetésével.
 
 ## Szakterületi fogalmak
 
-- Rendelés: Egy vendég által leadott rendelés, mely tartalmazhat ételt/italt, összesen maximum 20.000Ft-ig, tulajdonságai: leadás időpontja, teljesítés időpontja, név, cím, telefonszám, összeg.
+- Rendelés: Egy vendég által leadott rendelés, mely tartalmazhat ételt/italt, összesen maximum 20.000Ft-ig, tulajdonságai: leadás időpontja, teljesítés időpontja, státusz, név, cím, telefonszám, rendelt tételek.
 - Termék: Olyan étel vagy ital mely rendelhető a cégtől, tulajdonságai: név, ár, leírás, étel esetén csípős/ vegetáriánus opció.
 
 ## Szerepkörök
 
-- vendég: a főoldal tartalmához fér hozzá, rendelést adhat le.
-- alkalmazott: a vendég szerepkörén túl új ételt vagy italt adhat hozzá, és a rendeléseket kezelheti.
+- vendég: a főoldal tartalmához fér hozzá, böngészhet az ételek/italok között.
+- felhasználó: a vendég szerepkörén kívül elemeket adhat a kosarához, rendelést adhat le, megnézheti saját rendeléseit.
+- alkalmazott: a felhasználó szerepkörén túl új ételt/italt és kategóriát adhat hozzá, és az összes rendelést kezelheti.
 
 ## Fejlesztés
 
@@ -47,40 +50,38 @@
 
 ### Végpontok:
 1. __user:__
--	GET/user: bejelentkezett felhasználó 
--	GET/login: bejelentkezés
--	POST/login: bejelentkezési adatok küldése
--	GET/register: regisztráció
--	POST/register: regisztrációs adatok elküldése
--	POST/logout: kijelentkezés
+- GET/api/user: bejelentkezett felhasználó
+- POST/api/user/login: bejelentkezési adatok küldése, bejelentkezés
+- POST/api/user/register: regisztrációs adatok elküldése, regisztráció
+- POST/api/user/logout: kijelentkezés
 2. __order:__
--	GET/orders: role szerinti listázás
--	GET/searchStatus: státusz szerinti keresés
--	GET/searchName: név szerinti keresés
--	GET/searchAddress: cím szerinti keresés
--	POST/orders: új rendelés felküldése
--	PUT/orders/{id}/addItem: rendeléshez új tétel felvétele
--	PUT/orders/{id}: rendelés frissítése
--	GET/orders/{id}: rendelés lekérdezése
--	DELETE/orders/{id}: rendelés törlése
+- GET/api/orders: role szerinti listázása a rendeléseknek
+- POST/api/orders: új rendelés felvétele
+- GET/api/orders/{id}/deliver : rendelés státuszának állítása
+- GET/api/orders/{id}: rendelés lekérdezése
+- DELETE/api/orders/{id}: rendelés törlése
 3. __category:__
--	GET/categories: összes kategória listázás
-4. __item:__
--	GET/items: összes tétel listázása
--	GET/max: a legnépszerűbb tétel lekérése
--	GET/category/{id}/items : kategóriánkénti listázás
--	GET /category/{id}/item/search/{keyWord}: kategórián belül kulcsszóval keresés
--	GET/order/{id}/items: a rendelésen belüli tételek listázása
--	POST/category/{id}/items: új tétel felvétele
--	PUT/ /category/{categoryId}/item/{itemId}: tétel módosítása
--	GET/ /category/{categoryId}/item/{itemId}: tétel lekérdezése
--	DELETE/category/{categoryId}/item/{itemId}: tétel törlése
+- GET/api/categories: összes kategória listázása
+- GET/api/categories/{id}: egy kategória listázása
+- POST/api/categories: új kategória felvétele
+4. __cart:__
+- GET/api/cart : kosár tartalmának listázása
+- GET/api/cart/full : kosár tartalmának ára
+- DELETE/api/cart/del : kosár tartalmának törlése
+- POST/api/cart : új eleme hozzáadása a kosárhoz
+5. __item:__
+- GET/api/items: összes tétel listázása
+- GET/api/items/max: a legnépszerűbb tételek lekérése
+- GET/api/categories/{id}/items : kategóriánkénti listázás
+- GET/api/order/{id}/items: a rendelésen belüli tételek listázása
+- POST/api/items/new: új tétel felvétele
+- GET/api/categories/{categoryId}/items/{itemId}: tétel lekérdezése
 
 
 ## Végpont bemutatása
 
-Étel/ital tétel törlése:
-![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/sequence.jpg "Szekvencia diagram")
+Rendelés leadása:
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/szekvencia.png "Szekvencia diagram")
 
 ## Könyvtárstruktúra
 1.	…etelrendeles.annotations: egyedi annotációk
@@ -92,12 +93,14 @@
 -	OrderController.java
 -	CategoryController.java
 -	ItemController.java
+-	CartController.java
 3. …etelrendeles.entity: a tábláknak megfelelő entitások
 -	BaseEntity.java
 -	User.java
 -	Order.java
 -	Category.java
 -	Item.java
+-	Cart.java
 4.	…etelrendeles.repository: adatbázissal kommunikáló CrudRepositoryk
 -	UserRepository.java
 -	OrderRepository.java
@@ -107,7 +110,80 @@
 -	UserService.java
 -	OrderService.java
 -	CategoryService.java
+-	CartService.java
 -	ItemService.java
 
+## Felhasználó modell
+
+#### Vendég (GUEST)
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/GUEST.jpg "Guest modell")
+
+#### Felhasználó (USER)
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/USER.jpg "User modell")
+
+#### Alkalmazott (ADMIN)
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/ADMIN.jpg "Admin modell")
+
+## Felületi tervek
+
+**Bejelentkezés mockup**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/bejelentkezes.jpg "Bejelentkezes mockup")
+
+**Regisztráció mockup**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/Regisztracios.jpg "Regisztracio mockup")
+
+**Étellista mockup**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/Ételek_listája.jpg "Ételek mockup")
+
+**Kosár mockup**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/Kosar.jpg "Kosár mockup")
+
+**Rendeléslista mockup**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/Rendeles_listazasa.jpg "Rendeles lista mockup")
+
+**Rendelés kezelése mockup**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/Rendeles_kezeles.jpg "Rendeléskezelés mockup")
+
+**Új rendelés mockup**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/Ujrendeles_kosar_alapjan.jpg "Új rendelés mockup")
+
+**Új étel/ital mockup**
+
+![alt text](https://github.com/jarvast/alkfejl2017_etelrendeles/blob/master/images/Uj_étel_felvetele.jpg "Új étel mockup")
 
 
+## Megvalósítás
+
+**Főoldal**
+
+#### Tesztelés
+
+Teszteléshez az Angular beépített end 2 end tesztekre használható Protractort használjuk, ezt az **npm run e2e** paranccsal indíthatjuk. Az eredmény itt látható: 
+
+
+
+## Felhasználói dokumentáció
+
+### Telepítés 
+#### Telepítés előtt pár szükséges lépés
+  - Kell NodeJS és az npm amit itt lehet letölteni : [www.nodejs.org](https://www.nodejs.org)
+  - Internet elérés
+
+#### Telepítés
+1. Látogasson el a 	[https://github.com/jarvast/alkfejl2017_etelrendeles](https://github.com/jarvast/alkfejl2017_etelrendeles) oldalra.
+2. Itt kattintson a **"Clone and Download"** gombra, és azon belül kattintson a **"Download as Zip"** gombra.
+3. A letöltött állományt csomagoljuk ki
+4. Az etelrendeles könyvtár tartalmazza a szervert, ezt importálás után a pom.xml segítségével a spring-boot:run paranccsal indítsuk el.
+5. A food-order könyvtár tartalmazza a front end részt, ebben a mappában indítsuk el az npm install parancsot.
+6. Az **npm start** paranccsal ezután elindíthatjuk a programot.
+
+### Használata
+1. Böngészőben a keresősávba írjuk be a localhost:4200 elérést.
+2. Regisztrálás és bejelentkezés után használhatjuk a programot.
